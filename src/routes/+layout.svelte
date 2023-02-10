@@ -6,8 +6,18 @@
 </main>
 
 <style>
+	:root {
+		--color-bg: rgb(29, 20, 2);
+		--color-text: rgb(243, 229, 203);
+		--color-link: rgb(233, 190, 134);
+	}
+
+	:global(a) {
+		color: var(--color-link);
+	}
+
 	a {
-		color: rgb(243, 229, 203);
+		color: var(--color-text);
 		font-size: 24px;
 		text-decoration: none;
 		line-height: 2;
@@ -24,8 +34,8 @@
 	}
 
 	:global(html) {
-		background-color: rgb(29, 20, 2);
-		color: rgb(243, 229, 203);
+		background-color: var(--color-bg);
+		color: var(--color-text);
 		font-family: sans-serif;
 	}
 </style>
