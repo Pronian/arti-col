@@ -1,2 +1,6 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<p>Enter an link to an article to extract it to a separate page.</p>
+
+<form action="/view" method="get">
+	<input type="url" name="link" />
+	<button>Extract</button>
+</form>
