@@ -14,7 +14,7 @@
 	{/if}
 	<div class="article-meta">
 		{#if data.article.author}
-			<div>By <span>{data.article.author}</span></div>
+			<div>By <span>{data.article.author.replace('@', '')}</span></div>
 		{/if}
 		{#if data.article.published}
 			<div>Published on <span>{new Date(data.article.published).toLocaleDateString()}</span></div>

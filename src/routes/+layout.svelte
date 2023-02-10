@@ -2,7 +2,9 @@
 	<header>
 		<a href="/">ArtiCol</a>
 	</header>
-	<slot/>
+	<div class="content">
+		<slot/>
+	</div>
 </main>
 
 <style>
@@ -16,17 +18,29 @@
 		color: var(--color-link);
 	}
 
+	:global(body) {
+		margin: 0;
+	}
+
 	a {
+		display: inline-block;
 		color: var(--color-text);
 		font-size: 24px;
 		text-decoration: none;
 		line-height: 2;
+		margin: auto;
 	}
 
-	main {
+	.content {
 		max-width: 800px;
 		padding: 0 15px;
 		margin: auto;
+	}
+
+	header {
+		display: flex;
+		width: 100%;
+		box-shadow: #0000004a 0px 3px 3px 1px;
 	}
 
 	* {
