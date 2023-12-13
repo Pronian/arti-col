@@ -4,7 +4,7 @@ import { extract } from '@extractus/article-extractor';
 import { getHeaders } from './fetchHeaders';
 import './parserTransformations';
 
-export const load = (async ({ url, fetch }) => {
+export const load = (async ({ url, fetch, request }) => {
 	const linkStr = url.searchParams.get('link') || '';
 	let link: URL;
 
@@ -14,8 +14,10 @@ export const load = (async ({ url, fetch }) => {
 		throw error(400, 'Invalid link URL!');
 	}
 
+	const agent = request.headers.get('User-Agent');
+
 	const res = await fetch(link, {
-		headers: getHeaders(),
+		headers: getHeaders(agent || ''),
 	});
 
 	if (!res.ok) {
