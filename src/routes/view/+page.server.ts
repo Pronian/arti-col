@@ -18,6 +18,8 @@ export const load = (async ({ url, fetch, request }) => {
 
 	const res = await fetch(link, {
 		headers: getHeaders(agent || ''),
+	}).catch((err: Error) => {
+		throw error(400, `Encountered an error while fetching article: ${err.message}`);
 	});
 
 	if (!res.ok) {
