@@ -23,7 +23,7 @@ addTransformations([
 	{
 		patterns: [/http(s?):\/\/.+/],
 		pre: (document) => {
-			for (const el of document.querySelectorAll('figcaption')) {
+			for (const el of document.querySelectorAll('figcaption, .disclaimer, .breadcrumb, [class*=newsletter], .author')) {
 				el.remove();
 			}
 			return document;
