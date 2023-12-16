@@ -12,6 +12,7 @@
 		--color-bg: rgb(29, 20, 2);
 		--color-text: rgb(243, 229, 203);
 		--color-link: rgb(233, 190, 134);
+		--color-highlight: rgb(223, 169, 99);
 	}
 
 	:global(a) {
@@ -43,7 +44,7 @@
 		box-shadow: #0000004a 0px 3px 3px 1px;
 	}
 
-	* {
+	:global(*) {
 		box-sizing: border-box;
 	}
 
