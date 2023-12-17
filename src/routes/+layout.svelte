@@ -3,7 +3,7 @@
 		<a href="/">ArtiCol</a>
 	</header>
 	<div class="content">
-		<slot/>
+		<slot />
 	</div>
 </main>
 

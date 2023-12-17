@@ -1,7 +1,7 @@
 import { addTransformations } from '@extractus/article-extractor';
 
 const enum Node {
-	TEXT_NODE = 3
+	TEXT_NODE = 3,
 }
 
 addTransformations([
@@ -18,12 +18,14 @@ addTransformations([
 		},
 		post: (document) => {
 			return document;
-		}
+		},
 	},
 	{
 		patterns: [/http(s?):\/\/.+/],
 		pre: (document) => {
-			for (const el of document.querySelectorAll('figcaption, .disclaimer, .breadcrumb, [class*=newsletter], .author')) {
+			for (const el of document.querySelectorAll(
+				'figcaption, .disclaimer, .breadcrumb, [class*=newsletter], .author',
+			)) {
 				el.remove();
 			}
 			return document;
@@ -38,6 +40,6 @@ addTransformations([
 			}
 
 			return document;
-		}
-	}
+		},
+	},
 ]);

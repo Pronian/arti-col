@@ -25,7 +25,7 @@ export const load = (async ({ url, fetch, request }) => {
 	if (!res.ok) {
 		throw error(
 			400,
-			`This article can't be fetched at this time. Status code ${res.status}: ${res.statusText}`
+			`This article can't be fetched at this time. Status code ${res.status}: ${res.statusText}`,
 		);
 	}
 
@@ -33,6 +33,6 @@ export const load = (async ({ url, fetch, request }) => {
 	const extractResult = await extract(html);
 
 	return {
-		article: extractResult
+		article: extractResult,
 	};
 }) satisfies PageServerLoad;
