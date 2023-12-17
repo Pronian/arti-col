@@ -11,7 +11,7 @@ export const load = (async ({ url, fetch, request }) => {
 	try {
 		link = new URL(linkStr);
 	} catch (err) {
-		throw error(400, 'Invalid link URL!');
+		error(400, 'Invalid link URL!');
 	}
 
 	const agent = request.headers.get('User-Agent');
@@ -19,11 +19,11 @@ export const load = (async ({ url, fetch, request }) => {
 	const res = await fetch(link, {
 		headers: getHeaders(agent || ''),
 	}).catch((err: Error) => {
-		throw error(400, `Encountered an error while fetching article: ${err.message}`);
+		error(400, `Encountered an error while fetching article: ${err.message}`);
 	});
 
 	if (!res.ok) {
-		throw error(
+		error(
 			400,
 			`This article can't be fetched at this time. Status code ${res.status}: ${res.statusText}`,
 		);
