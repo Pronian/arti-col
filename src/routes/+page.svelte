@@ -1,10 +1,28 @@
+<script lang="ts">
+	import { goto } from "$app/navigation";
+	import lz from "lz-string";
+
+	let text = "";
+
+	function openLink() {
+		const compressed = lz.compressToBase64(text);
+		const url = new URL('/view', window.location.origin);
+		url.searchParams.set('text', compressed);
+		goto(url);
+	}
+</script>
+
 <div class="cont">
 	<p>Enter an link to an article to extract it to a separate page.</p>
-	
+
 	<form action="/view" method="get">
 		<input type="url" name="link" />
 		<button>Extract</button>
 	</form>
+
+	<p>Or paste text to get it as a link and open it.</p>
+	<textarea bind:value={text}></textarea>
+	<button on:click={openLink}>Open link</button>
 </div>
 
 <style>
