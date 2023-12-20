@@ -6,6 +6,11 @@ import './parserTransformations';
 
 export const load = (async ({ url, fetch, request }) => {
 	const linkStr = url.searchParams.get('link') || '';
+
+	if (!linkStr && url.searchParams.get('text')) {
+		return {};
+	}
+
 	let link: URL;
 
 	try {

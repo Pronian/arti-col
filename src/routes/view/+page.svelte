@@ -1,9 +1,20 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
+	import lz from 'lz-string';
 
 	export let data: PageData;
 
 	const article = data.article;
+	let text = '';
+
+	onMount(() => {
+		const params = new URLSearchParams(window.location.search);
+		const encodedText = params.get('text');
+		if (encodedText) {
+			text = lz.decompressFromBase64(encodedText);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -26,10 +37,18 @@
 			{/if}
 		</div>
 		{@html article.content}
+	{:else if text}
+		<div class="text">
+			{@html text}
+		</div>
 	{/if}
 </article>
 
 <style>
+	article {
+		margin-top: 25px;
+	}
+
 	article :global(img) {
 		width: 100%;
 	}
@@ -37,5 +56,9 @@
 	.article-meta {
 		display: flex;
 		justify-content: space-between;
+	}
+
+	.text {
+		white-space: pre-wrap;
 	}
 </style>
