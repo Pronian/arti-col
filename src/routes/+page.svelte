@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
-	import lz from "lz-string";
+	import { goto } from '$app/navigation';
+	import lz from 'lz-string';
 
-	let text = "";
+	let text = '';
 
-	function openLink() {
+	function openLink(event: MouseEvent) {
+		event.preventDefault();
 		const compressed = lz.compressToBase64(text);
 		const url = new URL('/view', window.location.origin);
 		url.searchParams.set('text', compressed);
@@ -21,8 +22,10 @@
 	</form>
 
 	<p>Or paste text to get it as a link and open it.</p>
-	<textarea bind:value={text}></textarea>
-	<button on:click={openLink}>Open link</button>
+	<form>
+		<textarea bind:value={text}></textarea>
+		<button on:click={openLink}>Open link</button>
+	</form>
 </div>
 
 <style>
@@ -44,9 +47,14 @@
 		form {
 			flex-direction: row;
 		}
+
+		button {
+			align-self: flex-end;
+		}
 	}
 
-	input {
+	input,
+	textarea {
 		border: 2px solid var(--color-highlight);
 		border-radius: 5px;
 		background-color: oklch(from var(--color-bg) 0.3 c h);
@@ -54,6 +62,12 @@
 		color: var(--color-text);
 		padding: 5px;
 		flex-grow: 1;
+	}
+
+	textarea {
+		font-size: 16px;
+		height: 300px;
+		resize: vertical;
 	}
 
 	button {
