@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { createDebouncedStore } from '$lib/stores/debouncedStore';
 	import lz from 'lz-string';
 
-	let text = '';
+	let text = createDebouncedStore('');
+
+	$: compressedText = lz.compressToBase64($text);
 
 	function openLink(event: MouseEvent) {
 		event.preventDefault();
-		const compressed = lz.compressToBase64(text);
 		const url = new URL('/view', window.location.origin);
-		url.searchParams.set('text', compressed);
+		url.searchParams.set('text', compressedText);
 		goto(url);
 	}
 </script>
@@ -23,7 +25,7 @@
 
 	<p>Or paste text to get it as a link and open it.</p>
 	<form>
-		<textarea bind:value={text}></textarea>
+		<textarea bind:value={$text}></textarea>
 		<button on:click={openLink}>Open link</button>
 	</form>
 </div>
