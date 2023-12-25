@@ -8,9 +8,12 @@
 	let text = createDebouncedStore('', 500);
 
 	$: compressedText = lz.compressToBase64($text);
+	$: textTooLong = compressedText.length > maxTextLength;
 
 	function openLink(event: MouseEvent) {
 		event.preventDefault();
+		if (textTooLong) return;
+
 		const url = new URL('/view', window.location.origin);
 		url.searchParams.set('text', compressedText);
 		goto(url);
@@ -28,7 +31,7 @@
 	<p>
 		Or paste text to get it as a link and open it.
 		{#if $text.length > 0}
-			<span class="count" class:error={compressedText.length > maxTextLength}>
+			<span class="count" class:error={textTooLong}>
 				{compressedText.length}/{maxTextLength}
 			</span>
 		{/if}
@@ -36,7 +39,7 @@
 
 	<form>
 		<textarea bind:value={$text}></textarea>
-		<button on:click={openLink}>Open link</button>
+		<button on:click={openLink} disabled={textTooLong}>Open link</button>
 	</form>
 </div>
 
@@ -104,5 +107,10 @@
 
 	button:hover {
 		background-color: oklch(from var(--color-highlight) 0.5 c h);
+	}
+
+	button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 </style>
