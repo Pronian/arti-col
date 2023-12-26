@@ -3,7 +3,9 @@
 	import { createDebouncedStore } from '$lib/stores/debouncedStore';
 	import lz from 'lz-string';
 
-	let text = createDebouncedStore('');
+	const maxTextLength = 3_600;
+
+	let text = createDebouncedStore('', 500);
 
 	$: compressedText = lz.compressToBase64($text);
 
@@ -23,7 +25,15 @@
 		<button>Extract</button>
 	</form>
 
-	<p>Or paste text to get it as a link and open it.</p>
+	<p>
+		Or paste text to get it as a link and open it.
+		{#if $text.length > 0}
+			<span class="count" class:error={compressedText.length > maxTextLength}>
+				{compressedText.length}/{maxTextLength}
+			</span>
+		{/if}
+	</p>
+
 	<form>
 		<textarea bind:value={$text}></textarea>
 		<button on:click={openLink}>Open link</button>
@@ -37,6 +47,16 @@
 
 	p {
 		font-size: 20px;
+	}
+
+	.count {
+		opacity: 0.5;
+		font-weight: lighter;
+	}
+
+	.count.error {
+		color: var(--color-text-error);
+		font-weight: normal;
 	}
 
 	form {

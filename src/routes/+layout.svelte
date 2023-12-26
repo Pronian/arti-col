@@ -13,6 +13,7 @@
 		--color-text: rgb(243, 229, 203);
 		--color-link: rgb(233, 190, 134);
 		--color-highlight: rgb(223, 169, 99);
+		--color-text-error: oklch(from var(--color-text) l 1 h);
 	}
 
 	:global(a) {
