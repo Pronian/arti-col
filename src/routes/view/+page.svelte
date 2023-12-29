@@ -7,7 +7,6 @@
 
 	const article = data.article;
 	let text = '';
-
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
 		const encodedText = params.get('text');
@@ -20,7 +19,21 @@
 <svelte:head>
 	{#if article}
 		<title>{article.title || 'View article'} | ArtiCol</title>
+		{#if article.title}
+			<meta property="og:title" content={article.title} />
+			<meta property="article:title" content={article.title} />
+		{/if}
+		{#if article.image}
+			<meta property="og:image" content={article.image} />
+		{/if}
+		{#if article.author}
+			<meta property="article:author" content={article.author} />
+		{/if}
+		{#if article.published}
+			<meta property="article:published_time" content={article.published} />
+		{/if}
 	{/if}
+	<meta property="og:type" content="article" />
 </svelte:head>
 
 <article>
