@@ -49,9 +49,11 @@
 				<div>Published on <span>{new Date(article.published).toLocaleDateString()}</span></div>
 			{/if}
 		</div>
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html article.content}
 	{:else if text}
 		<div class="text">
+			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html text}
 		</div>
 	{/if}
