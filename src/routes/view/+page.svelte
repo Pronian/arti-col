@@ -3,10 +3,15 @@
 	import { onMount } from 'svelte';
 	import lz from 'lz-string';
 
-	export let data: PageData;
+	let {
+		data,
+	}: {
+		data: PageData;
+	} = $props();
 
 	const article = data.article;
-	let text = '';
+	let text = $state('');
+
 	onMount(() => {
 		const params = new URLSearchParams(window.location.search);
 		const encodedText = params.get('text');

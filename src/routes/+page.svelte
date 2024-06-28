@@ -7,8 +7,8 @@
 
 	let text = createDebouncedStore('', 500);
 
-	$: compressedText = lz.compressToBase64($text);
-	$: textTooLong = compressedText.length > maxTextLength;
+	const compressedText = $derived(lz.compressToBase64($text));
+	const textTooLong = $derived(compressedText.length > maxTextLength);
 
 	function openLink(event: MouseEvent) {
 		event.preventDefault();
@@ -39,7 +39,7 @@
 
 	<form>
 		<textarea bind:value={$text}></textarea>
-		<button on:click={openLink} disabled={textTooLong}>Open link</button>
+		<button onclick={openLink} disabled={textTooLong}>Open link</button>
 	</form>
 </div>
 
