@@ -16,12 +16,30 @@
 		--color-text-error: oklch(from var(--color-text) l 1 h);
 	}
 
-	:global(a) {
-		color: var(--color-link);
+	:global {
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			background-color: var(--color-bg);
+			color: var(--color-text);
+			font-family: sans-serif;
+		}
+
+		body {
+			margin: 0;
+		}
+
+		a {
+			color: var(--color-link);
+		}
 	}
 
-	:global(body) {
-		margin: 0;
+	header {
+		display: flex;
+		width: 100%;
+		box-shadow: #0000004a 0px 3px 3px 1px;
 	}
 
 	a {
@@ -37,21 +55,5 @@
 		max-width: 800px;
 		padding: 0 15px;
 		margin: auto;
-	}
-
-	header {
-		display: flex;
-		width: 100%;
-		box-shadow: #0000004a 0px 3px 3px 1px;
-	}
-
-	:global(*) {
-		box-sizing: border-box;
-	}
-
-	:global(html) {
-		background-color: var(--color-bg);
-		color: var(--color-text);
-		font-family: sans-serif;
 	}
 </style>

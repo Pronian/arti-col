@@ -3,6 +3,8 @@
 	import { createDebouncedStore } from '$lib/stores/debouncedStore';
 	import lz from 'lz-string';
 
+	let inputUrl = $state('');
+
 	const maxTextLength = 3_600;
 
 	let text = createDebouncedStore('', 500);
@@ -24,8 +26,8 @@
 	<p>Enter an link to an article to extract it to a separate page.</p>
 
 	<form action="/view" method="get">
-		<input type="url" name="link" />
-		<button>Extract</button>
+		<input type="url" name="link" bind:value={inputUrl} />
+		<button disabled={!inputUrl}>Extract</button>
 	</form>
 
 	<p>
@@ -39,7 +41,7 @@
 
 	<form>
 		<textarea bind:value={$text}></textarea>
-		<button onclick={openLink} disabled={textTooLong}>Open link</button>
+		<button onclick={openLink} disabled={!$text || textTooLong}>Open link</button>
 	</form>
 </div>
 
@@ -55,11 +57,11 @@
 	.count {
 		opacity: 0.5;
 		font-weight: lighter;
-	}
 
-	.count.error {
-		color: var(--color-text-error);
-		font-weight: normal;
+		&.error {
+			color: var(--color-text-error);
+			font-weight: normal;
+		}
 	}
 
 	form {
@@ -103,14 +105,14 @@
 		color: var(--color-text);
 		padding: 7px;
 		cursor: pointer;
-	}
 
-	button:hover {
-		background-color: oklch(from var(--color-highlight) 0.5 c h);
-	}
+		&:hover {
+			background-color: oklch(from var(--color-highlight) 0.5 c h);
+		}
 
-	button:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
+		&:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
 	}
 </style>

@@ -15,7 +15,7 @@ export const load = (async ({ url, fetch, request }) => {
 
 	try {
 		link = new URL(linkStr);
-	} catch (err) {
+	} catch {
 		error(400, 'Invalid link URL!');
 	}
 

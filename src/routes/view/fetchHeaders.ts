@@ -1,4 +1,4 @@
-const chromeVersion = '121.0.0.0';
+const chromeVersion = '130.0.0.0';
 const safariVersion = '537.36';
 
 function getRandomItem<T>(array: T[]): T {
