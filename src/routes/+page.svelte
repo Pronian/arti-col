@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { createDebouncedStore } from '$lib/stores/debouncedStore';
+	import { debouncedState } from '$lib/state/debounced.svelte';
 	import lz from 'lz-string';
 
 	let inputUrl = $state('');
 
 	const maxTextLength = 3_600;
 
-	let text = createDebouncedStore('', 500);
+	let text = debouncedState('', 500);
 
-	const compressedText = $derived(lz.compressToBase64($text));
+	const compressedText = $derived(lz.compressToBase64(text.value));
 	const textTooLong = $derived(compressedText.length > maxTextLength);
 
 	function openLink(event: MouseEvent) {
@@ -32,7 +32,7 @@
 
 	<p>
 		Or paste text to get it as a link and open it.
-		{#if $text.length > 0}
+		{#if text.value.length > 0}
 			<span class="count" class:error={textTooLong}>
 				{compressedText.length}/{maxTextLength}
 			</span>
@@ -40,8 +40,11 @@
 	</p>
 
 	<form>
-		<textarea bind:value={$text}></textarea>
-		<button onclick={openLink} disabled={!$text || textTooLong}>Open link</button>
+		<textarea
+			value={text.value}
+			oninput={(e) => (text.value = (e.target as HTMLTextAreaElement).value)}
+		></textarea>
+		<button onclick={openLink} disabled={!text.value || textTooLong}>Open link</button>
 	</form>
 </div>
 
